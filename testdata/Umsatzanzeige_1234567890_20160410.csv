@@ -1,0 +1,11 @@
+"Umsatzanzeige vom 10.04.2016 17:14"
+"Kunde";"Max Mustermann"
+
+"Konto";"DE12345678901234567890"
+"Zeitraum";"10.03.2016 - 10.04.2016"
+"Kontosaldo";"1.462,29";"EUR"
+
+"Buchung";"Valuta";"Auftraggeber/Empfänger";"Buchungstext";"Verwendungszweck";"Betrag";"Währung";"Saldo";"Währung"
+"05.04.2016";"05.04.2016";"AAA AAAAAA";"aaaaaaa";"AAAA";"200,00";"EUR";"1.462,29";"EUR"
+"22.03.2016";"21.03.2016";"BBB BBBBBB";"bbbbbbb";"BBBB";"-200,00";"EUR";"1.138,22";"EUR"
+"21.03.2016";"21.03.2016";"CCC CCCCCC";"ccccccc";"CCCC";"-32,76";"EUR";"1.338,22";"EUR"
