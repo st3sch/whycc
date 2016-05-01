@@ -7,6 +7,7 @@ import (
 	"bufio"
 	"io"
 	"log"
+	"time"
 )
 
 func main() {
@@ -27,8 +28,36 @@ func main() {
 			continue
 		}
 
+		record = convert(record)
 		fmt.Println(record)
 	}
+}
+
+func convert(record []string) []string  {
+	result := make([]string, 6)
+
+	// Date
+	t, err := time.Parse("02.01.2006", record[0])
+	if err != nil {
+		log.Fatal(err)
+	}
+	result[0] = t.Format("02/01/2006")
+
+	// Payee
+	result[1] = record[2]
+
+	// Memo
+	result[3] = record[4]
+
+	// Amount
+	amount := record[5]
+	if(amount[0:1] == "-") {
+		result[5] = amount[1:]
+	} else {
+		result[4] = amount
+	}
+
+	return result
 }
 
 
