@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"encoding/csv"
 	"os"
 	"bufio"
@@ -15,6 +14,9 @@ func main() {
 	r := csv.NewReader(bufio.NewReader(f))
 	r.Comma =';'
 	r.FieldsPerRecord = -1
+
+	w := csv.NewWriter(os.Stdout)
+
 	for {
 		record, err := r.Read()
 		if err == io.EOF {
@@ -29,7 +31,11 @@ func main() {
 		}
 
 		record = convert(record)
-		fmt.Println(record)
+		err = w.Write(record)
+		if err != nil {
+			log.Fatal(err)
+		}
+		w.Flush()
 	}
 }
 
