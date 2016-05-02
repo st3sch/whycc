@@ -2,20 +2,30 @@ package main
 
 import (
 	"encoding/csv"
-	"os"
-	"bufio"
 	"io"
 	"log"
-	"time"
+	"os"
+	"st3sch/whycc/converter"
 )
 
 func main() {
-	f,_ := os.Open("./testdata/Umsatzanzeige_1234567890_20160410.csv")
-	r := csv.NewReader(bufio.NewReader(f))
-	r.Comma =';'
+	f, err := os.Open("./testdata/Umsatzanzeige_1234567890_20160410.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = ConvertFile(f, os.Stdout, converter.NewIngDiBa())
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ConvertFile(in io.Reader, out io.Writer, c converter.Converter) error {
+	r := csv.NewReader(in)
+	r.Comma = c.Comma()
 	r.FieldsPerRecord = -1
 
-	w := csv.NewWriter(os.Stdout)
+	w := csv.NewWriter(out)
 
 	for {
 		record, err := r.Read()
@@ -23,48 +33,20 @@ func main() {
 			break
 		}
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
 
-		if len(record) != 9 || record[0] == "Buchung" {
+		if !c.IsTransaction(record) {
 			continue
 		}
 
-		record = convert(record)
+		record = c.Convert(record)
 		err = w.Write(record)
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
 		w.Flush()
 	}
+
+	return nil
 }
-
-func convert(record []string) []string  {
-	result := make([]string, 6)
-
-	// Date
-	t, err := time.Parse("02.01.2006", record[0])
-	if err != nil {
-		log.Fatal(err)
-	}
-	result[0] = t.Format("02/01/2006")
-
-	// Payee
-	result[1] = record[2]
-
-	// Memo
-	result[3] = record[4]
-
-	// Amount
-	amount := record[5]
-	if(amount[0:1] == "-") {
-		result[5] = amount[1:]
-	} else {
-		result[4] = amount
-	}
-
-	return result
-}
-
-
-
