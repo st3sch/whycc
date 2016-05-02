@@ -2,7 +2,6 @@ package converter
 
 import (
 	"log"
-	"time"
 )
 
 type IngDiBa struct {
@@ -25,13 +24,13 @@ func (i *IngDiBa) IsTransaction(record []string) bool {
 
 func (i *IngDiBa) Convert(record []string) []string {
 	result := make([]string, 6)
+	var err error
 
 	// Date
-	t, err := time.Parse("02.01.2006", record[0])
+	result[0], err = convertDateFrom("02.01.2006", record[0])
 	if err != nil {
 		log.Fatal(err)
 	}
-	result[0] = t.Format("02/01/2006")
 
 	// Payee
 	result[1] = record[2]
@@ -40,9 +39,9 @@ func (i *IngDiBa) Convert(record []string) []string {
 	result[3] = record[4]
 
 	// Amount
-	amount := record[5]
-	if amount[0:1] == "-" {
-		result[5] = amount[1:]
+	amount := convertThousandAndCommaSeperator(record[5])
+	if isNegative(amount) {
+		result[5] = abs(amount)
 	} else {
 		result[4] = amount
 	}
