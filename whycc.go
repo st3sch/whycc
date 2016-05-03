@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -11,23 +12,31 @@ import (
 )
 
 func main() {
+	patterns := make(map[string]*string)
+	patterns["ingdiba"] = flag.String("ingdiba", "", "Pattern for ING DiDb files")
+	inputdir := flag.String("i", ".", "Input directory")
+	flag.Parse()
 
-	files, err := filepath.Glob("./testdata/Umsatzanzeige_1234567890_*.csv")
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, filename := range files {
-		fmt.Println(filename)
-	}
+	for banktype, pattern := range patterns {
+		fmt.Println("Banktype: ", banktype)
+		fmt.Println("Pattern: ", *pattern)
+		files, err := filepath.Glob(*inputdir + string(filepath.Separator) + *pattern)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	f, err := os.Open("./testdata/Umsatzanzeige_1234567890_20160410.csv")
-	if err != nil {
-		log.Fatal(err)
-	}
+		for _, filename := range files {
+			fmt.Println("File: ", filename)
+			f, err := os.Open(filename)
+			if err != nil {
+				log.Fatal(err)
+			}
 
-	err = ConvertFile(f, os.Stdout, converter.NewIngDiBa())
-	if err != nil {
-		log.Fatal(err)
+			err = ConvertFile(f, os.Stdout, converter.NewIngDiBa())
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
 	}
 }
 
