@@ -2,13 +2,24 @@ package main
 
 import (
 	"encoding/csv"
+	"fmt"
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"st3sch/whycc/converter"
 )
 
 func main() {
+
+	files, err := filepath.Glob("./testdata/Umsatzanzeige_1234567890_*.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, filename := range files {
+		fmt.Println(filename)
+	}
+
 	f, err := os.Open("./testdata/Umsatzanzeige_1234567890_20160410.csv")
 	if err != nil {
 		log.Fatal(err)
