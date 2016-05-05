@@ -2,17 +2,18 @@ package bankfile
 
 import (
 	"reflect"
+	"st3sch/whycc/bankfile/converter"
 	"testing"
 )
 
 func TestFactory_FindBy(t *testing.T) {
 	type testpair struct {
 		in       string
-		expected string
+		expected reflect.Type
 	}
 
 	tests := []testpair{
-		{"ingdiba", "IngDiBa"},
+		{"ingdiba", reflect.TypeOf(converter.IngDiBa{})},
 	}
 
 	f := factory{}
@@ -22,8 +23,10 @@ func TestFactory_FindBy(t *testing.T) {
 			t.Errorf("Unexpected Error: '%v'", err)
 			continue
 		}
-		if pair.expected != reflect.TypeOf(cl).Name() {
 
+		converterType := reflect.TypeOf(cl)
+		if pair.expected != converterType {
+			t.Errorf("Expected converter type %q does not match returned converter type %q", pair.expected, converterType)
 		}
 	}
 
