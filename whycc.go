@@ -8,7 +8,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"st3sch/whycc/converter"
+	"st3sch/whycc/bankfile"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 				log.Fatal(err)
 			}
 
-			err = ConvertFile(f, os.Stdout, converter.NewIngDiBa())
+			err = ConvertFile(f, os.Stdout, bankfile.NewIngDiBa())
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -40,7 +40,7 @@ func main() {
 	}
 }
 
-func ConvertFile(in io.Reader, out io.Writer, c converter.Converter) error {
+func ConvertFile(in io.Reader, out io.Writer, c bankfile.Converter) error {
 	r := csv.NewReader(in)
 	r.Comma = c.Comma()
 	r.FieldsPerRecord = -1

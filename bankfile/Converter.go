@@ -1,5 +1,4 @@
-package converter
-
+package bankfile
 
 type Converter interface {
 	Comma() rune
