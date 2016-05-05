@@ -1,8 +1,8 @@
 package converter
 
 import (
-	"time"
 	"strings"
+	"time"
 )
 
 func convertDateFrom(layout string, value string) (string, error) {
@@ -13,7 +13,7 @@ func convertDateFrom(layout string, value string) (string, error) {
 	return t.Format("02/01/2006"), nil
 }
 
-func convertThousandAndCommaSeperator(value string) string {
+func convertThousandAndCommaSeparator(value string) string {
 	value = strings.Replace(value, ".", "", -1)
 	value = strings.Replace(value, ",", ".", -1)
 	return value
