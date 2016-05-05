@@ -1,4 +1,4 @@
-package bankfile
+package converter
 
 import (
 	"log"
