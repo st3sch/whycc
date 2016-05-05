@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"st3sch/whycc/bankfile"
+	"st3sch/whycc/bankfile/converter"
 )
 
 func main() {
@@ -32,7 +33,7 @@ func main() {
 				log.Fatal(err)
 			}
 
-			err = ConvertFile(f, os.Stdout, bankfile.NewIngDiBa())
+			err = ConvertFile(f, os.Stdout, converter.NewIngDiBa())
 			if err != nil {
 				log.Fatal(err)
 			}
