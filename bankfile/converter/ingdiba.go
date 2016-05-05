@@ -8,21 +8,21 @@ type IngDiBa struct {
 	comma rune
 }
 
-func NewIngDiBa() *IngDiBa {
-	return &IngDiBa{
+func NewIngDiBa() IngDiBa {
+	return IngDiBa{
 		comma: ';',
 	}
 }
 
-func (i *IngDiBa) Comma() rune {
+func (i IngDiBa) Comma() rune {
 	return i.comma
 }
 
-func (i *IngDiBa) IsTransaction(record []string) bool {
+func (i IngDiBa) IsTransaction(record []string) bool {
 	return !(len(record) != 9 || record[0] == "Buchung")
 }
 
-func (i *IngDiBa) Convert(record []string) []string {
+func (i IngDiBa) Convert(record []string) []string {
 	result := make([]string, 6)
 	var err error
 
