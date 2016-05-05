@@ -9,7 +9,6 @@ import (
 	"os"
 	"path/filepath"
 	"st3sch/whycc/bankfile"
-	"st3sch/whycc/bankfile/converter"
 )
 
 func main() {
@@ -18,10 +17,16 @@ func main() {
 	inputdir := flag.String("i", ".", "Input directory")
 	flag.Parse()
 
+	converterLocator := bankfile.NewConverterLocator()
 	for banktype, pattern := range patterns {
 		fmt.Println("Banktype: ", banktype)
 		fmt.Println("Pattern: ", *pattern)
 		files, err := filepath.Glob(*inputdir + string(filepath.Separator) + *pattern)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		conv, err := converterLocator.FindBy(banktype)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -33,7 +38,7 @@ func main() {
 				log.Fatal(err)
 			}
 
-			err = ConvertFile(f, os.Stdout, converter.NewIngDiBa())
+			err = ConvertFile(f, os.Stdout, conv)
 			if err != nil {
 				log.Fatal(err)
 			}
