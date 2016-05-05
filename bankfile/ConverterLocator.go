@@ -22,5 +22,5 @@ func (f factory) FindBy(bank string) (Converter, error) {
 }
 
 func NewConverterLocator() ConverterLocator {
-	return &factory{}
+	return factory{}
 }
