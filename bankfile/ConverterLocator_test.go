@@ -1,8 +1,8 @@
 package bankfile
 
 import (
+	"github.com/st3sch/whycc/bankfile/converter"
 	"reflect"
-	"st3sch/whycc/bankfile/converter"
 	"testing"
 )
 

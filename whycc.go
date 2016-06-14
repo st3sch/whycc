@@ -4,11 +4,11 @@ import (
 	"encoding/csv"
 	"flag"
 	"fmt"
+	"github.com/st3sch/whycc/bankfile"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
-	"st3sch/whycc/bankfile"
 )
 
 func main() {

@@ -2,7 +2,7 @@ package bankfile
 
 import (
 	"fmt"
-	"st3sch/whycc/bankfile/converter"
+	"github.com/st3sch/whycc/bankfile/converter"
 )
 
 type ConverterLocator interface {
