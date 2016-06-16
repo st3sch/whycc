@@ -13,15 +13,22 @@ import (
 
 func main() {
 	patterns := make(map[string]*string)
-	patterns["ingdiba"] = flag.String("ingdiba", "", "Pattern for ING DiDb files")
+	patterns["ingdiba"] = flag.String("ingdiba", "", "Pattern for ING DiDba files")
+	patterns["augusta"] = flag.String("augusta", "", "Pattern for Augusta Banke files")
 	inputdir := flag.String("i", ".", "Input directory")
 	flag.Parse()
+	fmt.Println("Inputdir: ", *inputdir)
 
 	converterLocator := bankfile.NewConverterLocator()
 	for banktype, pattern := range patterns {
 		fmt.Println("Banktype: ", banktype)
 		fmt.Println("Pattern: ", *pattern)
+		if *pattern == "" {
+			continue
+		}
+
 		files, err := filepath.Glob(*inputdir + string(filepath.Separator) + *pattern)
+		fmt.Println(files)
 		if err != nil {
 			log.Fatal(err)
 		}
