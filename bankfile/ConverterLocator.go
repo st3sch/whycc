@@ -2,6 +2,7 @@ package bankfile
 
 import (
 	"fmt"
+
 	"github.com/st3sch/whycc/bankfile/converter"
 )
 
