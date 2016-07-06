@@ -28,3 +28,5 @@ _testmain.go
 # IDEA Settings
 /.idea/
 
+# App executable
+whycc

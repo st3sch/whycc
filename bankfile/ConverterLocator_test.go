@@ -1,9 +1,10 @@
 package bankfile
 
 import (
-	"github.com/st3sch/whycc/bankfile/converter"
 	"reflect"
 	"testing"
+
+	"github.com/st3sch/whycc/bankfile/converter"
 )
 
 func TestFactory_FindBy(t *testing.T) {
