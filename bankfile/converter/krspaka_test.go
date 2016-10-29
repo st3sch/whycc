@@ -1,6 +1,7 @@
 package converter
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -35,6 +36,28 @@ func TestKrSpaKa_IsTransaction(t *testing.T) {
 		actual := k.IsTransaction(pair.record)
 		if actual != pair.expected {
 			t.Errorf("Result is '%v', but it should be '%v' for %q", actual, pair.expected, pair.record)
+		}
+	}
+}
+
+func TestKrSpaKa_Convert(t *testing.T) {
+	type testpair struct {
+		record   []string
+		expected []string
+	}
+
+	tests := []testpair{
+		{
+			[]string{"123456789", "14.10.16", "14.10.16", "FOLGELASTSCHRIFT", "1212-3434 acommpany ", "XC352647657", "sfasfae-325678fsdgr", "2323462477", "", "", "", "ACOMPANY", "DE1234567891234", "YYYYAAAAA", "-12,99", "EUR", "Umsatz gebucht"},
+			[]string{"14/10/2016", "", "", "", "", ""},
+		},
+	}
+
+	k := NewKrSpaKa()
+	for _, pair := range tests {
+		actual := k.Convert(pair.record)
+		if !reflect.DeepEqual(actual, pair.expected) {
+			t.Errorf("Actual record (%q) does't match expected record (%q) with input (%q)", actual, pair.expected, pair.record)
 		}
 	}
 }

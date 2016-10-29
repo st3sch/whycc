@@ -1,5 +1,7 @@
 package converter
 
+import "log"
+
 type KrSpaKa struct {
 	comma rune
 }
@@ -20,5 +22,13 @@ func (k KrSpaKa) IsTransaction(record []string) bool {
 
 func (k KrSpaKa) Convert(record []string) []string {
 	result := make([]string, 6)
+	var err error
+
+	// Date
+	result[0], err = convertDateFrom("02.01.06", record[1])
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	return result
 }
