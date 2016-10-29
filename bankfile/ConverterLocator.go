@@ -19,6 +19,8 @@ func (f factory) FindBy(bank string) (Converter, error) {
 		return converter.NewIngDiBa(), nil
 	case "augusta":
 		return converter.NewAugusta(), nil
+	case "krspaka":
+		return converter.NewKrSpaKa(), nil
 	default:
 		return nil, fmt.Errorf("Invalid bank %v type", bank)
 	}

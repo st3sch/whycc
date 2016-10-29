@@ -30,3 +30,6 @@ _testmain.go
 
 # App executable
 whycc
+
+# Ignore test data
+/testdata/

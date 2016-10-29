@@ -6,7 +6,7 @@ import (
 )
 
 func convertDateFrom(layout string, value string) (string, error) {
-	t, err := time.Parse("02.01.2006", value)
+	t, err := time.Parse(layout, value)
 	if err != nil {
 		return "", err
 	}
