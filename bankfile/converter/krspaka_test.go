@@ -49,7 +49,7 @@ func TestKrSpaKa_Convert(t *testing.T) {
 	tests := []testpair{
 		{
 			[]string{"123456789", "14.10.16", "14.10.16", "FOLGELASTSCHRIFT", "1212-3434 acommpany ", "XC352647657", "sfasfae-325678fsdgr", "2323462477", "", "", "", "ACOMPANY", "DE1234567891234", "YYYYAAAAA", "-12,99", "EUR", "Umsatz gebucht"},
-			[]string{"14/10/2016", "", "", "", "", ""},
+			[]string{"14/10/2016", "ACOMPANY", "", "", "", ""},
 		},
 	}
 

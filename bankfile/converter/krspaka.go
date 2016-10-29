@@ -30,5 +30,8 @@ func (k KrSpaKa) Convert(record []string) []string {
 		log.Fatal(err)
 	}
 
+	// Payee
+	result[1] = record[11]
+
 	return result
 }
