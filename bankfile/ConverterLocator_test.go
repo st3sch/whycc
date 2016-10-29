@@ -15,6 +15,8 @@ func TestFactory_FindBy(t *testing.T) {
 
 	tests := []testpair{
 		{"ingdiba", reflect.TypeOf(converter.IngDiBa{})},
+		{"augusta", reflect.TypeOf(converter.Augusta{})},
+		{"krspaka", reflect.TypeOf(converter.KrSpaKa{})},
 	}
 
 	f := factory{}
