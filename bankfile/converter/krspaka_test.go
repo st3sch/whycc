@@ -50,6 +50,9 @@ func TestKrSpaKa_Convert(t *testing.T) {
 		{
 			[]string{"123456789", "14.10.16", "14.10.16", "FOLGELASTSCHRIFT", "1212-3434 acommpany ", "XC352647657", "sfasfae-325678fsdgr", "2323462477", "", "", "", "ACOMPANY", "DE1234567891234", "YYYYAAAAA", "-12,99", "EUR", "Umsatz gebucht"},
 			[]string{"14/10/2016", "ACOMPANY", "", "[FOLGELASTSCHRIFT] 1212-3434 acommpany ", "", "12.99"},
+		}, {
+			[]string{"123456789", "15.10.16", "16.10.16", "FOLGELASTSCHRIFT", "1212-3434 bcommpany ", "XC352647657", "sfasfae-325678fsdgr", "2323462477", "", "", "", "BCOMPANY", "DE1234567891234", "YYYYAAAAA", "3092,44", "EUR", "Umsatz gebucht"},
+			[]string{"15/10/2016", "BCOMPANY", "", "[FOLGELASTSCHRIFT] 1212-3434 bcommpany ", "3092.44", ""},
 		},
 	}
 

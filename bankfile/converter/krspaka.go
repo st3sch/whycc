@@ -40,7 +40,6 @@ func (k KrSpaKa) Convert(record []string) []string {
 	result[3] = fmt.Sprintf("[%v] %v", record[3], record[4])
 
 	// Amount
-	// Amount
 	amount := convertThousandAndCommaSeparator(record[14])
 	if isNegative(amount) {
 		result[5] = abs(amount)
