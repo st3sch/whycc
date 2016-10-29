@@ -1,6 +1,9 @@
 package converter
 
-import "log"
+import (
+	"fmt"
+	"log"
+)
 
 type KrSpaKa struct {
 	comma rune
@@ -32,6 +35,9 @@ func (k KrSpaKa) Convert(record []string) []string {
 
 	// Payee
 	result[1] = record[11]
+
+	// Memo
+	result[3] = fmt.Sprintf("[%v] %v", record[3], record[4])
 
 	return result
 }
