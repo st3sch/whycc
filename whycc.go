@@ -18,8 +18,10 @@ func main() {
 	patterns["augusta"] = flag.String("augusta", "", "Pattern for Augusta Bank files")
 	patterns["krspaka"] = flag.String("krspaka", "", "Pattern for Kreissparkasse Augsburg files")
 	inputdir := flag.String("i", ".", "Input directory")
+	outputdir := flag.String("o", ".", "Output directory")
 	flag.Parse()
 	fmt.Println("Inputdir: ", *inputdir)
+	fmt.Println("Outputdir: ", *outputdir)
 
 	converterLocator := bankfile.NewConverterLocator()
 	for banktype, pattern := range patterns {
