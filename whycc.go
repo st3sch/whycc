@@ -28,15 +28,7 @@ func main() {
 	fmt.Println("Outputdir: ", *outDir)
 
 	if *cleanupOutDir {
-		fmt.Println("Clearing output directory ...")
-		filesToDelete, err := filepath.Glob(*outDir + string(filepath.Separator) + "*.csv")
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		for _, fileToDelete := range filesToDelete {
-			deleteFile(fileToDelete)
-		}
+		deleteAllCsvFilesInDirectory(*outDir)
 	}
 
 	converterLocator := bankfile.NewConverterLocator()
@@ -122,5 +114,17 @@ func deleteFile(fileName string) {
 	if err != nil {
 		log.Println("Could not delete file: " + fileName)
 		log.Println(err)
+	}
+}
+
+func deleteAllCsvFilesInDirectory(dirName string) {
+	fmt.Println("Clearing output directory ...")
+	files, err := filepath.Glob(dirName + string(filepath.Separator) + "*.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+		deleteFile(file)
 	}
 }
