@@ -21,6 +21,7 @@ func main() {
 	patterns["krspaka"] = flag.String("krspaka", "", "Pattern for Kreissparkasse Augsburg files")
 	inDir := flag.String("i", ".", "Input directory")
 	outDir := flag.String("o", ".", "Output directory")
+	cleanupInDir := flag.Bool("ci", false, "Delete input files after conversion")
 	flag.Parse()
 	fmt.Println("Inputdir: ", *inDir)
 	fmt.Println("Outputdir: ", *outDir)
@@ -61,6 +62,15 @@ func main() {
 			err = ConvertFile(inputFile, outFile, conv)
 			if err != nil {
 				log.Fatal(err)
+			}
+
+			if *cleanupInDir {
+				fmt.Println("Delete " + inFileName)
+				err := os.Remove(inFileName)
+				if err != nil {
+					log.Println("Could not delete file: " + inFileName)
+					log.Println(err)
+				}
 			}
 		}
 	}
