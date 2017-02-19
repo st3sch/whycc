@@ -13,11 +13,6 @@ func TestKrSpaKa_Comma(t *testing.T) {
 	}
 }
 
-type testpair struct {
-	record   []string
-	expected bool
-}
-
 func TestKrSpaKa_IsTransaction(t *testing.T) {
 	type testpair struct {
 		expected bool
