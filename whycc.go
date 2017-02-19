@@ -72,6 +72,7 @@ func ConvertFile(in io.Reader, out io.Writer, c bankfile.Converter) error {
 	r.FieldsPerRecord = -1
 
 	w := csv.NewWriter(out)
+	w.Write([]string{"Date", "Payee", "Category", "Memo", "Outflow", "Inflow"})
 
 	for {
 		record, err := r.Read()
