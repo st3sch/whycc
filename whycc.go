@@ -19,11 +19,11 @@ func main() {
 	patterns["ingdiba"] = flag.String("ingdiba", "", "Pattern for ING DiDba files")
 	patterns["augusta"] = flag.String("augusta", "", "Pattern for Augusta Bank files")
 	patterns["krspaka"] = flag.String("krspaka", "", "Pattern for Kreissparkasse Augsburg files")
-	inputdir := flag.String("i", ".", "Input directory")
-	outputdir := flag.String("o", ".", "Output directory")
+	inDir := flag.String("i", ".", "Input directory")
+	outDir := flag.String("o", ".", "Output directory")
 	flag.Parse()
-	fmt.Println("Inputdir: ", *inputdir)
-	fmt.Println("Outputdir: ", *outputdir)
+	fmt.Println("Inputdir: ", *inDir)
+	fmt.Println("Outputdir: ", *outDir)
 
 	converterLocator := bankfile.NewConverterLocator()
 	for banktype, pattern := range patterns {
@@ -33,8 +33,8 @@ func main() {
 			continue
 		}
 
-		files, err := filepath.Glob(*inputdir + string(filepath.Separator) + *pattern)
-		fmt.Println(files)
+		inFileNames, err := filepath.Glob(*inDir + string(filepath.Separator) + *pattern)
+		fmt.Println(inFileNames)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -44,21 +44,21 @@ func main() {
 			log.Fatal(err)
 		}
 
-		for _, filename := range files {
-			fmt.Println("File: ", filename)
-			f, err := os.Open(filename)
+		for _, inFileName := range inFileNames {
+			fmt.Println("File: ", inFileName)
+			inputFile, err := os.Open(inFileName)
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			outfilename := *outputdir + string(filepath.Separator) + banktype + "_" + path.Base(filename)
-			outfile, err := os.Create(outfilename)
+			outFileName := *outDir + string(filepath.Separator) + banktype + "_" + path.Base(inFileName)
+			outFile, err := os.Create(outFileName)
 			if err != nil {
 				log.Fatal(err)
 			}
-			defer outfile.Close()
+			defer outFile.Close()
 
-			err = ConvertFile(f, outfile, conv)
+			err = ConvertFile(inputFile, outFile, conv)
 			if err != nil {
 				log.Fatal(err)
 			}
