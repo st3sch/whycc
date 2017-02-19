@@ -87,6 +87,7 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
+			inputFile.Close()
 
 			if *cleanupInDir {
 				deleteFile(inFileName)
