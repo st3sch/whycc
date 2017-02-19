@@ -42,9 +42,9 @@ func (k KrSpaKa) Convert(record []string) []string {
 	// Amount
 	amount := convertThousandAndCommaSeparator(record[14])
 	if isNegative(amount) {
-		result[5] = abs(amount)
+		result[4] = abs(amount)
 	} else {
-		result[4] = amount
+		result[5] = amount
 	}
 
 	return result
