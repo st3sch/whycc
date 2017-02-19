@@ -9,6 +9,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"path"
+
 	"github.com/st3sch/whycc/bankfile"
 )
 
@@ -49,7 +51,14 @@ func main() {
 				log.Fatal(err)
 			}
 
-			err = ConvertFile(f, os.Stdout, conv)
+			outfilename := *outputdir + string(filepath.Separator) + banktype + "_" + path.Base(filename)
+			outfile, err := os.Create(outfilename)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer outfile.Close()
+
+			err = ConvertFile(f, outfile, conv)
 			if err != nil {
 				log.Fatal(err)
 			}
