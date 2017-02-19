@@ -21,9 +21,15 @@ func main() {
 	patterns["krspaka"] = flag.String("krspaka", "", "Pattern for Kreissparkasse Augsburg files")
 	inDir := flag.String("i", ".", "Input directory")
 	outDir := flag.String("o", ".", "Output directory")
+	cleanupInDir := flag.Bool("ci", false, "Delete input files after conversion")
+	cleanupOutDir := flag.Bool("co", false, "Delete all old csv files in output directory")
 	flag.Parse()
 	fmt.Println("Inputdir: ", *inDir)
 	fmt.Println("Outputdir: ", *outDir)
+
+	if *cleanupOutDir {
+		deleteAllCsvFilesInDirectory(*outDir)
+	}
 
 	converterLocator := bankfile.NewConverterLocator()
 	for banktype, pattern := range patterns {
@@ -62,6 +68,10 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
+
+			if *cleanupInDir {
+				deleteFile(inFileName)
+			}
 		}
 	}
 }
@@ -96,4 +106,25 @@ func ConvertFile(in io.Reader, out io.Writer, c bankfile.Converter) error {
 	}
 
 	return nil
+}
+
+func deleteFile(fileName string) {
+	fmt.Println("Deleting file: " + fileName)
+	err := os.Remove(fileName)
+	if err != nil {
+		log.Println("Could not delete file: " + fileName)
+		log.Println(err)
+	}
+}
+
+func deleteAllCsvFilesInDirectory(dirName string) {
+	fmt.Println("Clearing output directory ...")
+	files, err := filepath.Glob(dirName + string(filepath.Separator) + "*.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+		deleteFile(file)
+	}
 }
