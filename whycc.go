@@ -15,22 +15,35 @@ import (
 )
 
 func main() {
+	// Flag definition
 	patterns := make(map[string]*string)
 	patterns["ingdiba"] = flag.String("ingdiba", "", "Pattern for ING DiDba files")
 	patterns["augusta"] = flag.String("augusta", "", "Pattern for Augusta Bank files")
 	patterns["krspaka"] = flag.String("krspaka", "", "Pattern for Kreissparkasse Augsburg files")
+
 	inDir := flag.String("i", ".", "Input directory")
 	outDir := flag.String("o", ".", "Output directory")
+
 	cleanupInDir := flag.Bool("ci", false, "Delete input files after conversion")
 	cleanupOutDir := flag.Bool("co", false, "Delete all old csv files in output directory")
-	flag.Parse()
-	fmt.Println("Inputdir: ", *inDir)
-	fmt.Println("Outputdir: ", *outDir)
 
+	flag.Parse()
+
+	// sanity checks
+	if _, err := os.Stat(*inDir); os.IsNotExist(err) {
+		log.Fatal("Input directory does not exist")
+	}
+
+	if _, err := os.Stat(*outDir); os.IsNotExist(err) {
+		log.Fatal("Output directory does not exist")
+	}
+
+	// output dir cleanup
 	if *cleanupOutDir {
 		deleteAllCsvFilesInDirectory(*outDir)
 	}
 
+	// file parsing
 	converterLocator := bankfile.NewConverterLocator()
 	for banktype, pattern := range patterns {
 		fmt.Println("Banktype: ", banktype)
