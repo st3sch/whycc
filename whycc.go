@@ -27,7 +27,14 @@ func main() {
 	cleanupInDir := flag.Bool("ci", false, "Delete input files after conversion")
 	cleanupOutDir := flag.Bool("co", false, "Delete all old csv files in output directory")
 
+	printHelp := flag.Bool("h", false, "Print help")
+
 	flag.Parse()
+
+	// print help
+	if *printHelp {
+		flag.Usage()
+	}
 
 	// sanity checks
 	if _, err := os.Stat(*inDir); os.IsNotExist(err) {
