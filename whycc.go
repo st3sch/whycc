@@ -46,14 +46,15 @@ func main() {
 	// file parsing
 	converterLocator := bankfile.NewConverterLocator()
 	for banktype, pattern := range patterns {
-		fmt.Println("Banktype: ", banktype)
-		fmt.Println("Pattern: ", *pattern)
 		if *pattern == "" {
 			continue
 		}
 
+		fmt.Println()
+		fmt.Println("Parsing files of bank type: ", banktype)
+		fmt.Println("-----------------------------------------------------------")
+
 		inFileNames, err := filepath.Glob(*inDir + string(filepath.Separator) + *pattern)
-		fmt.Println(inFileNames)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -64,7 +65,7 @@ func main() {
 		}
 
 		for _, inFileName := range inFileNames {
-			fmt.Println("File: ", inFileName)
+			fmt.Println("Converting file: ", inFileName)
 			inputFile, err := os.Open(inFileName)
 			if err != nil {
 				log.Fatal(err)
@@ -87,6 +88,8 @@ func main() {
 			}
 		}
 	}
+
+	fmt.Println()
 }
 
 func ConvertFile(in io.Reader, out io.Writer, c bankfile.Converter) error {
