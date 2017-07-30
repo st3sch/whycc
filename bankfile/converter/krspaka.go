@@ -3,6 +3,7 @@ package converter
 import (
 	"fmt"
 	"log"
+	"strings"
 )
 
 type KrSpaKa struct {
@@ -20,7 +21,7 @@ func (k KrSpaKa) Comma() rune {
 }
 
 func (k KrSpaKa) IsTransaction(record []string) bool {
-	return !(len(record) != 17 || record[0] == "Auftragskonto")
+	return !(len(record) != 17 || record[0] == "Auftragskonto" || strings.Contains(record[16], "vorgemerkt"))
 }
 
 func (k KrSpaKa) Convert(record []string) []string {
