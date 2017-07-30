@@ -14,6 +14,14 @@ type factory struct {
 }
 
 func (f factory) FindBy(bank string) (Converter, error) {
+	c, err := f.loadConverterFor(bank)
+	if err != nil {
+		return nil, err
+	}
+	return lineImplodeDecorator{c}, nil
+}
+
+func (f factory) loadConverterFor(bank string) (Converter, error) {
 	switch bank {
 	case "ingdiba":
 		return converter.NewIngDiBa(), nil

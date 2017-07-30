@@ -26,3 +26,8 @@ func abs(value string) string {
 func isNegative(value string) bool {
 	return value[0:1] == "-"
 }
+
+func ImplodeLines(s string) string {
+	replacer := strings.NewReplacer("\r", "", "\n", " ")
+	return strings.TrimSpace(replacer.Replace(s))
+}

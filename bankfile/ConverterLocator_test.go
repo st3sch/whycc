@@ -8,6 +8,24 @@ import (
 )
 
 func TestFactory_FindBy(t *testing.T) {
+	f := factory{}
+
+	c, err := f.FindBy("ingdiba")
+	if err != nil {
+		t.Errorf("Unexpected error: '%v'", err)
+	}
+	_, ok := c.(Converter)
+	if !ok {
+		t.Errorf("Returned converter doesn't implement interface 'converter'")
+	}
+
+	_, err = f.FindBy("non existent")
+	if err == nil {
+		t.Error("Expected invlaid type error not raised")
+	}
+}
+
+func TestFactory_loadConverterFor(t *testing.T) {
 	type testpair struct {
 		in       string
 		expected reflect.Type
@@ -21,7 +39,7 @@ func TestFactory_FindBy(t *testing.T) {
 
 	f := factory{}
 	for _, pair := range tests {
-		conv, err := f.FindBy(pair.in)
+		conv, err := f.loadConverterFor(pair.in)
 		if err != nil {
 			t.Errorf("Unexpected Error: '%v'", err)
 			continue
@@ -33,7 +51,7 @@ func TestFactory_FindBy(t *testing.T) {
 		}
 	}
 
-	_, err := f.FindBy("non existent")
+	_, err := f.loadConverterFor("non existent")
 	if err == nil {
 		t.Error("Expected invlaid type error not raised")
 	}
