@@ -42,9 +42,9 @@ func (a Augusta) Convert(record []string) []string {
 	amount := convertThousandAndCommaSeparator(record[11])
 	switch record[12] {
 	case "H":
-		result[4] = amount
-	case "S":
 		result[5] = amount
+	case "S":
+		result[4] = amount
 	default:
 		log.Println("No SOLL or HABEN flag given!")
 	}

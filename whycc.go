@@ -9,8 +9,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"path"
-
 	"github.com/st3sch/whycc/bankfile"
 )
 
@@ -78,7 +76,7 @@ func main() {
 				log.Fatal(err)
 			}
 
-			outFileName := *outDir + string(filepath.Separator) + banktype + "_" + path.Base(inFileName)
+			outFileName := *outDir + string(filepath.Separator) + banktype + "_" + filepath.Base(inFileName)
 			outFile, err := os.Create(outFileName)
 			if err != nil {
 				log.Fatal(err)
@@ -89,6 +87,7 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
+			inputFile.Close()
 
 			if *cleanupInDir {
 				deleteFile(inFileName)
@@ -105,6 +104,7 @@ func ConvertFile(in io.Reader, out io.Writer, c bankfile.Converter) error {
 	r.FieldsPerRecord = -1
 
 	w := csv.NewWriter(out)
+	w.UseCRLF = true
 	w.Write([]string{"Date", "Payee", "Category", "Memo", "Outflow", "Inflow"})
 
 	for {
