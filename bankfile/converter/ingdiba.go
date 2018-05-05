@@ -39,7 +39,7 @@ func (i IngDiBa) Convert(record []string) []string {
 	result[3] = record[4]
 
 	// Amount
-	amount := convertThousandAndCommaSeparator(record[5])
+	amount := convertThousandAndCommaSeparator(record[7])
 	if isNegative(amount) {
 		result[4] = abs(amount)
 	} else {
