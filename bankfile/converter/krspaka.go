@@ -1,7 +1,6 @@
 package converter
 
 import (
-	"fmt"
 	"log"
 	"strings"
 )
@@ -38,7 +37,7 @@ func (k KrSpaKa) Convert(record []string) []string {
 	result[1] = record[11]
 
 	// Memo
-	result[3] = fmt.Sprintf("[%v] %v", record[3], record[4])
+	result[3] = record[4]
 
 	// Amount
 	amount := convertThousandAndCommaSeparator(record[14])
