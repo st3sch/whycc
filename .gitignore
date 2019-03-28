@@ -34,3 +34,5 @@ whycc
 # Ignore test data
 /testdata/
 /ynabfiles/
+/*.csv
+/*.CSV
