@@ -32,7 +32,8 @@ _testmain.go
 whycc
 
 # Ignore test data
-/testdata/
+/testdata/*.csv
+/testdata/*.CSV
 /ynabfiles/
 /*.csv
 /*.CSV
