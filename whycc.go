@@ -151,3 +151,7 @@ func deleteAllCsvFilesInDirectory(dirName string) {
 		deleteFile(file)
 	}
 }
+
+func findCSVFilesInDirectory(dirName string) ([]string, error) {
+	return filepath.Glob(dirName + string(filepath.Separator) + "*.csv")
+}
