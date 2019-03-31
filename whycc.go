@@ -33,7 +33,15 @@ func main() {
 
 	printHelp := flag.Bool("h", false, "Print help")
 
+	printVersion := flag.Bool("v", false, "Print version")
+
 	flag.Parse()
+
+	// print version
+	if *printVersion {
+		fmt.Printf("Version: %s (%s) - %s", version, commit, date)
+		fmt.Println()
+	}
 
 	// print help
 	if *printHelp {
