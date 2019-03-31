@@ -142,7 +142,7 @@ func deleteFile(fileName string) {
 
 func deleteAllCsvFilesInDirectory(dirName string) {
 	fmt.Println("Clearing output directory ...")
-	files, err := filepath.Glob(dirName + string(filepath.Separator) + "*.csv")
+	files, err := findCSVFilesInDirectory(dirName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -153,5 +153,5 @@ func deleteAllCsvFilesInDirectory(dirName string) {
 }
 
 func findCSVFilesInDirectory(dirName string) ([]string, error) {
-	return filepath.Glob(dirName + string(filepath.Separator) + "*.csv")
+	return filepath.Glob(dirName + string(filepath.Separator) + "*.[cC][sS][vV]")
 }
