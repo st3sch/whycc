@@ -12,6 +12,12 @@ import (
 	"github.com/st3sch/whycc/bankfile"
 )
 
+var (
+	version string
+	commit  string
+	date    string
+)
+
 func main() {
 	// Flag definition
 	patterns := make(map[string]*string)
