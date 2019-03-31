@@ -39,8 +39,9 @@ func main() {
 
 	// print version
 	if *printVersion {
-		fmt.Printf("Version: %s (%s) - %s", version, commit, date)
-		fmt.Println()
+		fmt.Println("Version:", version)
+		fmt.Println("Commit: ", commit)
+		fmt.Println("Date:   ", date)
 	}
 
 	// print help
