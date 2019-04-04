@@ -9,7 +9,16 @@ import (
 	"os"
 	"path/filepath"
 
+	"strconv"
+	"time"
+
 	"github.com/st3sch/whycc/bankfile"
+)
+
+var (
+	version string
+	commit  string
+	date    string
 )
 
 func main() {
@@ -27,7 +36,26 @@ func main() {
 
 	printHelp := flag.Bool("h", false, "Print help")
 
+	printVersion := flag.Bool("v", false, "Print version")
+
 	flag.Parse()
+
+	// print version
+	if *printVersion {
+		versionString := "Version not available"
+		seconds, err := strconv.ParseInt(date, 10, 64)
+		if err != nil {
+			versionString = fmt.Sprintf("Version: %s (%s)", version, commit)
+		} else {
+			ts := time.Unix(seconds, 0)
+			versionString = fmt.Sprintf("Version: %s (%s) @ %s",
+				version,
+				commit,
+				ts.Format(time.RFC3339),
+			)
+		}
+		fmt.Println(versionString)
+	}
 
 	// print help
 	if *printHelp {
