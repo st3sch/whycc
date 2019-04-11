@@ -1,0 +1,6 @@
+checkoutLocation: "go/src/github.com/st3sch/whycc"
+workspaceLocation: "go/src/github.com/st3sch/whycc"
+tasks:
+    - command: >
+        cd /workspace/go/src/github.com/st3sch/whycc &&
+        go get -v ./...
