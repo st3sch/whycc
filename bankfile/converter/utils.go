@@ -13,6 +13,14 @@ func convertDateFrom(layout string, value string) (string, error) {
 	return t.Format("02/01/2006"), nil
 }
 
+func IsDate(layout string, value string) bool {
+	_, err := time.Parse(layout, value)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 func convertThousandAndCommaSeparator(value string) string {
 	value = strings.Replace(value, ".", "", -1)
 	value = strings.Replace(value, ",", ".", -1)
