@@ -11,3 +11,22 @@ func TestAugusta_Comma(t *testing.T) {
 		t.Errorf("Field seperator is %q instead of expected %q", k.Comma(), expectedComma)
 	}
 }
+
+func TestAugusta_IsTransaction(t *testing.T)  {
+	type testpair struct {
+		expected bool
+		record []string
+	}
+	
+	tests := []testpair{
+		{false, []string{}},
+	}
+
+	k := NewAugusta()
+	for _, pair := range tests{
+		actual := k.IsTransaction(pair.record)
+		if actual != pair.expected {
+			t.Errorf("Result is '%v', but it should be '%v' for %q", actual, pair.expected, pair.record)
+		}	
+	}
+}
