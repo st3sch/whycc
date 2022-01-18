@@ -19,7 +19,7 @@ func (a Augusta) Comma() rune {
 }
 
 func (a Augusta) IsTransaction(record []string) bool {
-	return !(len(record) != 17 || record[0] == "Buchungstag" || record[9] == "Anfangssaldo" || record[9] == "Endsaldo")
+	return !(len(record) != 17 || !IsDate("02.01.2006", record[0]) || record[9] == "Anfangssaldo" || record[9] == "Endsaldo")
 }
 
 func (a Augusta) Convert(record []string) []string {
