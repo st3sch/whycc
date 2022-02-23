@@ -14,8 +14,11 @@ type IngDiBa struct {
 
 func NewIngDiBa() IngDiBa {
 	return IngDiBa{
-
-		comma: ';',
+		indexOfDate:   0,
+		indexOfPayee:  2,
+		indexOfMemo:   5,
+		indexOfAmount: 8,
+		comma:         ';',
 	}
 }
 
