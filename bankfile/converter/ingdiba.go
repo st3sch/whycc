@@ -5,11 +5,11 @@ import (
 )
 
 type IngDiBa struct {
-	indexOfDate int
-	indexOfPayee int
-	indexOfMemo int
+	indexOfDate   int
+	indexOfPayee  int
+	indexOfMemo   int
 	indexOfAmount int
-	comma rune
+	comma         rune
 }
 
 func NewIngDiBa() IngDiBa {
@@ -35,19 +35,19 @@ func (i IngDiBa) Convert(record []string) []string {
 	var err error
 
 	// Date
-	result[0], err = convertDateFrom("02.01.2006", record[0])
+	result[0], err = convertDateFrom("02.01.2006", record[i.indexOfDate])
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Payee
-	result[1] = record[2]
+	result[1] = record[i.indexOfPayee]
 
 	// Memo
-	result[3] = record[4]
+	result[3] = record[i.indexOfMemo]
 
 	// Amount
-	amount := convertThousandAndCommaSeparator(record[7])
+	amount := convertThousandAndCommaSeparator(record[i.indexOfAmount])
 	if isNegative(amount) {
 		result[4] = abs(amount)
 	} else {
