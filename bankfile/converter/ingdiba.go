@@ -5,20 +5,22 @@ import (
 )
 
 type IngDiBa struct {
-	indexOfDate   int
-	indexOfPayee  int
-	indexOfMemo   int
-	indexOfAmount int
-	comma         rune
+	validRecordLenght 	int
+	indexOfDate   		int
+	indexOfPayee  		int
+	indexOfMemo   		int
+	indexOfAmount 		int
+	comma         		rune
 }
 
 func NewIngDiBa() IngDiBa {
 	return IngDiBa{
-		indexOfDate:   0,
-		indexOfPayee:  2,
-		indexOfMemo:   5,
-		indexOfAmount: 8,
-		comma:         ';',
+		validRecordLenght: 	10,
+		indexOfDate:   		0,
+		indexOfPayee:  		2,
+		indexOfMemo:   		5,
+		indexOfAmount: 		8,
+		comma:         		';',
 	}
 }
 
@@ -27,7 +29,7 @@ func (i IngDiBa) Comma() rune {
 }
 
 func (i IngDiBa) IsTransaction(record []string) bool {
-	return !(len(record) != 9 || record[0] == "Buchung")
+	return !(len(record) != i.validRecordLenght || record[0] == "Buchung")
 }
 
 func (i IngDiBa) Convert(record []string) []string {
