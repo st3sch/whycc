@@ -5,11 +5,16 @@ import (
 )
 
 type IngDiBa struct {
+	indexOfDate int
+	indexOfPayee int
+	indexOfMemo int
+	indexOfAmount int
 	comma rune
 }
 
 func NewIngDiBa() IngDiBa {
 	return IngDiBa{
+
 		comma: ';',
 	}
 }
