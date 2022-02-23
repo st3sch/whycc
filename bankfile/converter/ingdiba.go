@@ -5,12 +5,22 @@ import (
 )
 
 type IngDiBa struct {
-	comma rune
+	validRecordLenght 	int
+	indexOfDate   		int
+	indexOfPayee  		int
+	indexOfMemo   		int
+	indexOfAmount 		int
+	comma         		rune
 }
 
 func NewIngDiBa() IngDiBa {
 	return IngDiBa{
-		comma: ';',
+		validRecordLenght: 	10,
+		indexOfDate:   		0,
+		indexOfPayee:  		2,
+		indexOfMemo:   		5,
+		indexOfAmount: 		8,
+		comma:         		';',
 	}
 }
 
@@ -19,7 +29,7 @@ func (i IngDiBa) Comma() rune {
 }
 
 func (i IngDiBa) IsTransaction(record []string) bool {
-	return !(len(record) != 9 || record[0] == "Buchung")
+	return !(len(record) != i.validRecordLenght || record[0] == "Buchung")
 }
 
 func (i IngDiBa) Convert(record []string) []string {
@@ -27,19 +37,19 @@ func (i IngDiBa) Convert(record []string) []string {
 	var err error
 
 	// Date
-	result[0], err = convertDateFrom("02.01.2006", record[0])
+	result[0], err = convertDateFrom("02.01.2006", record[i.indexOfDate])
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Payee
-	result[1] = record[2]
+	result[1] = record[i.indexOfPayee]
 
 	// Memo
-	result[3] = record[4]
+	result[3] = record[i.indexOfMemo]
 
 	// Amount
-	amount := convertThousandAndCommaSeparator(record[7])
+	amount := convertThousandAndCommaSeparator(record[i.indexOfAmount])
 	if isNegative(amount) {
 		result[4] = abs(amount)
 	} else {
