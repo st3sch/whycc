@@ -5,22 +5,22 @@ import (
 )
 
 type IngDiBa struct {
-	validRecordLenght 	int
-	indexOfDate   		int
-	indexOfPayee  		int
-	indexOfMemo   		int
-	indexOfAmount 		int
-	comma         		rune
+	validRecordLenght int
+	indexOfDate       int
+	indexOfPayee      int
+	indexOfMemo       int
+	indexOfAmount     int
+	comma             rune
 }
 
 func NewIngDiBa() IngDiBa {
 	return IngDiBa{
-		validRecordLenght: 	10,
-		indexOfDate:   		0,
-		indexOfPayee:  		2,
-		indexOfMemo:   		5,
-		indexOfAmount: 		8,
-		comma:         		';',
+		validRecordLenght: 9,
+		indexOfDate:       0,
+		indexOfPayee:      2,
+		indexOfMemo:       4,
+		indexOfAmount:     7,
+		comma:             ';',
 	}
 }
 
